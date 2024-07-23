@@ -5,11 +5,11 @@ import dominio.Pelicula;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServicioPeliculaLista implements  IServicioPeliculas{
+public class ServicioPeliculasLista implements  IServicioPeliculas{
 
     private final List<Pelicula> peliculas;
 
-    public ServicioPeliculaLista(){
+    public ServicioPeliculasLista(){
         this.peliculas = new ArrayList<>();
     }
     @Override
@@ -28,16 +28,32 @@ public class ServicioPeliculaLista implements  IServicioPeliculas{
     public void buscarPelicula(Pelicula pelicula) {
         //Regresa el indice de la pelicula encontrada en la lista
         var indice = peliculas.indexOf(pelicula);
-        System.out.println("Pelicula encontrada en el indice: " + indice);
+        if(indice == -1)
+            System.out.println("No se encontró la pelicula: " + pelicula);
+        else
+            System.out.println("Pelicula encontrada en el indice: " + indice);
 
     }
 
     public static void main(String[] args) {
         // Creamos algunos objetos te tipo pelicula
-
         var pelicula1 = new Pelicula("Batman");
         var pelicula2 = new Pelicula("Superman");
 
+        //Creamos mi objeto de servicio(patron de diseño service)
+        IServicioPeliculas  servicioPeliculas = new ServicioPeliculasLista();
+
+        //Agregamos las peliculas a la lista
+
+        servicioPeliculas.agregarPelicula(pelicula1);
+        servicioPeliculas.agregarPelicula(pelicula2);
+
+        //Listamos las peliculas
+        servicioPeliculas.listarPeliculas();
+
+        //Buscamos una pelicula
+        //Se debe implementar el método equals y hashCode
+        servicioPeliculas.buscarPelicula(new Pelicula("Batman"));
 
 
         /**Primero utilizamos el Tipo de dato de la interface,
@@ -57,16 +73,7 @@ public class ServicioPeliculaLista implements  IServicioPeliculas{
             this.peliculas = new ArrayList<>();
           } */
 
-        //Creamos mi objeto de servicio(patron de diseño service)
-        IServicioPeliculas  servicioPeliculas = new ServicioPeliculaLista();
 
-        //Agregamos las peliculas a la lista
-
-        servicioPeliculas.agregarPelicula(pelicula1);
-        servicioPeliculas.agregarPelicula(pelicula2);
-
-        //Listamos las peliculas
-        servicioPeliculas.listarPeliculas();
 
     }
 
